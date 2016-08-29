@@ -5,7 +5,13 @@
 // }
 var app = angular.module('app');
 app.controller('homeCtrl',['$scope','pageService',function($scope,pageService){
- $scope.msg = pageService.msg("homepage alert", "msg_alert");
- $scope.msg.open();
+ $scope.event = pageService;
+ $scope.event.msg = pageService.msg("homepage alert", "msg_alert");
+ $scope.event.getcookie = function(){
+       $scope.event.cookie("userinfo","get");
+ }
+//  $scope.event.intiFile().rename("filename");
+//  $scope.event.instanceFile();
+//  $scope.event.filename.FileUpload();
  $scope.label="fuck";
 }]);

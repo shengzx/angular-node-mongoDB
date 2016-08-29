@@ -2,13 +2,11 @@
 var app = angular.module("app");
 
 app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScope, $modal, $state) {
-    var msg = function (param) {
+    var msg = function () {
         this.open = function () {
             $modal.open({
                 templateUrl: 'tpl/msgModel.html',
-                controller: function () {
-                },
-                resolve: param
+                resolve: discribe
             });
         }
         this.close = function () {
@@ -17,11 +15,11 @@ app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScop
         this.ok = function () {
             console.log("点击了确定方法");
         }
-        this.discribe = param;
+        this.discribe;
         this.name = "提示框";
     }
-    msg.prototype.msg_alert = function () {
-
+    msg.prototype.msg_alert = function (param) {
+        this.discribe = param;
     }
     msg.prototype.confirm = function (ok_fun, cancel_fun) {
         this.name = "选择提示框";
@@ -38,7 +36,31 @@ app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScop
     }
     return new msg();
 }])
-    .factory('pageService', ['$http', '$rootScope', '$modal', '$state', 'msgSercvie', function ($http, $rootScope, $modal, $state, msgSercvie) {
+    // .factory('fileSercvie', ['$rootScope', '$state', function ($rootScope,$state) {
+    //     var file = function(){
+    //         this.FileUpload = function(){
+    //             ngFileUpload.upload(
+    //                 {
+    //                     url:url,
+    //                     data:data
+    //                 }
+    //             );
+    //         };
+    //         this.url = "localhost";
+    //         this.data;
+    //         this.name = "FileUpload"
+    //     }
+    //     file.prototype.redata = function(data){
+    //          this.data =data;
+    //     }
+    //     file.prototype.reurl = function(url){
+    //         this.url = url;
+    //     }
+    //     file.prototype.rename = function(name){
+    //         this.name = name;
+    //     }
+    // }])
+    .factory('pageService', ['$http', '$rootScope', '$modal', '$cookieStore', '$state', 'msgSercvie', function ($http, $rootScope, $modal, $cookieStore,$state, msgSercvie) {
         var page = function () {
         };
         page.prototype.ajax = function (param) {
@@ -53,8 +75,17 @@ app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScop
         }
         page.prototype.msg = function (param, type) {
             if (type !== undefined)
-                msgSercvie[type]();
+                msgSercvie[type](param);
             return msgSercvie;
+        }
+        page.prototype.cookie = function (name, type, param) {
+            return $cookieStore[type](name, param);
+        }
+        page.prototype.intiFile = function(){
+            //  return fileSercvie;
+        }
+        page.prototype.instanceFile=function(){
+            this[fileSercvie.name] = fileSercvie;
         }
         return new page();
     }])
