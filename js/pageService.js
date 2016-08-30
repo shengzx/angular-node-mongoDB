@@ -1,7 +1,7 @@
 'use strict'
 var app = angular.module("app");
 
-app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScope, $modal, $state) {
+app.factory('msgService', ['$rootScope', '$modal', '$state', function ($rootScope, $modal, $state) {
     var msg = function () {
         this.open = function () {
             $modal.open({
@@ -36,31 +36,40 @@ app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScop
     }
     return new msg();
 }])
-    // .factory('fileSercvie', ['$rootScope', '$state', function ($rootScope,$state) {
-    //     var file = function(){
-    //         this.FileUpload = function(){
-    //             ngFileUpload.upload(
-    //                 {
-    //                     url:url,
-    //                     data:data
-    //                 }
-    //             );
-    //         };
-    //         this.url = "localhost";
-    //         this.data;
-    //         this.name = "FileUpload"
-    //     }
-    //     file.prototype.redata = function(data){
-    //          this.data =data;
-    //     }
-    //     file.prototype.reurl = function(url){
-    //         this.url = url;
-    //     }
-    //     file.prototype.rename = function(name){
-    //         this.name = name;
-    //     }
-    // }])
-    .factory('pageService', ['$http', '$rootScope', '$modal', '$cookieStore', '$state', 'msgSercvie', function ($http, $rootScope, $modal, $cookieStore,$state, msgSercvie) {
+    .factory('fileService', ['$rootScope', '$state', 'FileUploader', function ($rootScope, $state, FileUploader) {
+        var file = function () {
+            this.url = "localhost";
+            this.data;
+            this.name = "FileUpload"
+        }
+        file.prototype.FileUpload = function () {
+            var uploader = new FileUploader({
+                url:this.url
+            });
+            console.log("执行了上传" + this.url + this.data);
+            uploader.uploadAll();
+        };
+        file.prototype.redata = function (data) {
+            this.data = data;
+        }
+        file.prototype.reurl = function (url) {
+            this.url = url;
+        }
+        file.prototype.rename = function (name) {
+            this.name = name;
+        }
+        file.prototype.instance = function (a) {
+            var F = function (a) { 
+                this.name = a.name;
+                this.url = a.url;
+                this.data = a.data;
+            };
+            F.prototype = a.__proto__;
+              return new F(a);
+        };
+        return new file();
+    }])
+    .factory('pageService', ['$http', '$rootScope', '$modal', '$cookieStore', '$state', 'fileService', 'msgService', function ($http, $rootScope, $modal, $cookieStore, $state, fileService, msgService) {
         var page = function () {
         };
         page.prototype.ajax = function (param) {
@@ -75,17 +84,15 @@ app.factory('msgSercvie', ['$rootScope', '$modal', '$state', function ($rootScop
         }
         page.prototype.msg = function (param, type) {
             if (type !== undefined)
-                msgSercvie[type](param);
-            return msgSercvie;
+                msgService[type](param);
+            return msgService;
         }
         page.prototype.cookie = function (name, type, param) {
             return $cookieStore[type](name, param);
         }
-        page.prototype.intiFile = function(){
-            //  return fileSercvie;
-        }
-        page.prototype.instanceFile=function(){
-            this[fileSercvie.name] = fileSercvie;
+        page.prototype.instanceFile = function (param,fun) {
+            //可以通过抽样接口改变属性也可以重构方法
+            this[fileService.name] = fileService.instance(fileService);
         }
         return new page();
     }])
