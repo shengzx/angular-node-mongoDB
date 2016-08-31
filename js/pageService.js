@@ -42,13 +42,6 @@ app.factory('msgService', ['$rootScope', '$modal', '$state', function ($rootScop
             this.data;
             this.name = "FileUpload"
         }
-        file.prototype.FileUpload = function () {
-            var uploader = new FileUploader({
-                url:this.url
-            });
-            console.log("执行了上传" + this.url + this.data);
-            uploader.uploadAll();
-        };
         file.prototype.redata = function (data) {
             this.data = data;
         }
@@ -59,13 +52,19 @@ app.factory('msgService', ['$rootScope', '$modal', '$state', function ($rootScop
             this.name = name;
         }
         file.prototype.instance = function (a) {
-            var F = function (a) { 
+            var F = function (a) {
                 this.name = a.name;
                 this.url = a.url;
                 this.data = a.data;
             };
             F.prototype = a.__proto__;
-              return new F(a);
+            F.prototype.FileUploader = new FileUploader({
+                url: this.url
+            });
+            file.prototype.FileUpload = function () {
+                this.FileUploader.uploadAll();
+            };
+            return new F(a);
         };
         return new file();
     }])
@@ -90,7 +89,7 @@ app.factory('msgService', ['$rootScope', '$modal', '$state', function ($rootScop
         page.prototype.cookie = function (name, type, param) {
             return $cookieStore[type](name, param);
         }
-        page.prototype.instanceFile = function (param,fun) {
+        page.prototype.instanceFile = function (param, fun) {
             //可以通过抽样接口改变属性也可以重构方法
             this[fileService.name] = fileService.instance(fileService);
         }

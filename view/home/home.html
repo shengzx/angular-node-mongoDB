@@ -5,5 +5,6 @@
 <a href="javascript:void(0)" ng-click="event.cookie('userinfo','put','{name:\“小八子\”}')">put object to cookie</a>
 <a href="javascript:void(0)" ng-click="event.getcookie()">get userinfo by cookie</a>
 
-<input type="file"  nv-file-select uploader＝"{{event.FileUpload.name}}" name="uplodefile"/>
+<input type="file" nv-file-select="" uploader="event.FileUpload.FileUploader" multiple  />
+<a href="javascript:" ng-click="event.FileUpload.FileUpload()">点击上传</a>
 {{label}}

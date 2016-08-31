@@ -11,8 +11,6 @@ app.controller('homeCtrl', ['$scope', 'pageService', function ($scope, pageServi
         $scope.event.cookie("userinfo", "get");
     }
     $scope.event.instanceFile({name:'rname',url:'rurl',data:'rdata'},function(data){
-
     });
-    $scope.event.FileUpload.FileUpload();
     $scope.label = "fuck";
 }]);
