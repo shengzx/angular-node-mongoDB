@@ -38,7 +38,7 @@ app.factory('msgService', ['$rootScope', '$modal', '$state', function ($rootScop
 }])
     .factory('fileService', ['$rootScope', '$state', 'FileUploader', function ($rootScope, $state, FileUploader) {
         var file = function () {
-            this.url = "localhost";
+            this.url = "http://localhost:3001/api/file";
             this.data;
             this.name = "FileUpload"
         }
