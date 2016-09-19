@@ -2,18 +2,48 @@
     padding: 0;
 }
 
+.row {
+    margin: 0;
+}
+
 a {
     color: #FFF;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 li {
     list-style-type: none;
     float: left;
 }
+
+.y-h-c {
+    text-align: center;
+}
+
+.y-h-c h5 {
+    color: #777;
+}
+
 .y-l-t {
     width: 100%;
     height: 3em;
     background: #00796B;
+}
+
+.y-l-w {
+    max-width: 320px;
+    height: 3em;
+    float: left;
+    margin-left: 3em;
+}
+
+.y-l-w span {
+    color: #FFF;
+    line-height: 3em;
 }
 
 .y-l-t>a {
@@ -22,12 +52,35 @@ li {
 
 .y-l-t .logo {
     height: 3em;
+    width: 4em;
+    float: left;
+}
+
+.y-l-t>.y-l-t-uidiv ul {
+    height: 3em;
+    /* float: right; */
+}
+
+.y-l-t-uidiv {
+    width: auto;
+    float: right;
+}
+
+.y-l-t-uidiv>div {
+    width: 100%;
+}
+
+.y-l-t>.y-l-t-uidiv ul li {
+    background-color: #00796B;
+    padding: 0.8em;
+    border-right: 1px solid #005a52;
 }
 
 .y-l-b {
     width: 100%;
     background: #009688;
     text-align: center;
+    padding: 1px 0;
 }
 
 .y-l-b>a {
@@ -68,10 +121,31 @@ li {
     border-radius: 10px;
 }
 
+.y-l-o {}
+
+.y-l-o .link {
+    text-align: center;
+}
+
 
 /* 小屏幕（平板，小于等于 768px） */
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+    .y-l-t>.y-l-t-uidiv ul {
+        height: 3em;
+        display: inline-block;
+        margin: 2px auto;
+    }
+    .y-l-t-uidiv {
+        height: 3.3em;
+        width: 100%;
+        background-color: rgba(1, 76, 69, 0.8);
+    }
+    .y-l-o {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+}
 
 
 /* 中等屏幕（桌面显示器，大于等于 769px） */
