@@ -6,6 +6,14 @@
     margin: 0;
 }
 
+.padd {
+    padding: 15px;
+}
+
+.padd-x {
+    padding: 0 15px;
+}
+
 a {
     color: #FFF;
 }
@@ -31,6 +39,7 @@ li {
 .y-l-t {
     width: 100%;
     height: 3em;
+    text-align: center;
     background: #00796B;
 }
 
@@ -130,6 +139,51 @@ li {}
 }
 
 
+/*注册页面样式*/
+
+.y-r-t {
+    padding: 1em;
+    border: 2px solid #009688;
+    text-align: center;
+    color: #009688;
+    margin-top: 15px;
+    border-radius: 1em;
+}
+
+.y-r-f {
+    padding: 1em;
+    border: 2px solid #004841;
+    background-color: #009688;
+    text-align: center;
+    margin-top: 15px;
+    border-radius: 1em;
+}
+
+.y-r-f a {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.page-form {}
+
+.page-form label {
+    text-align: right;
+    padding-top: 7px;
+}
+
+.div-form {
+    padding: 1em;
+    border: 2px solid #009688;
+    color: #009688;
+    margin-top: 15px;
+    border-radius: 1em;
+}
+
+.y-r-t h3 {}
+
+.y-r-t h5 {}
+
+
 /* 小屏幕（平板，小于等于 768px） */
 
 @media (max-width: 768px) {
@@ -141,7 +195,7 @@ li {}
     .y-l-t-uidiv {
         height: 3.3em;
         width: 100%;
-        background-color: rgba(1, 76, 69, 0.8);
+        background-color: rgb(0, 72, 65);
     }
     .y-l-o {
         max-width: 320px;
@@ -152,4 +206,9 @@ li {}
 
 /* 中等屏幕（桌面显示器，大于等于 769px） */
 
-@media (min-width: 769px) {}
+@media (min-width: 769px) {
+    .div-cf {
+        float: initial;
+        margin: 15px auto;
+    }
+}
